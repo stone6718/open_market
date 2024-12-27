@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> {{shop_name}} </title>
+
+        <link rel="stylesheet" href="/static/css/login.css">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <script src="/static/js/block_debug.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+        <script type="text/javascript">
+            var filter = "win16|win32|win64|mac";
+            if (navigator.platform) {
+                if (0 > filter.indexOf(navigator.platform.toLowerCase())) {} else {
+                    devtoolsDetector.addListener(function (isOpen, detail) {
+                        if (isOpen) {
+                            swal.fire(
+                                "개발자 도구 감지",
+                                '개발자 도구가 감지 되었습니다.',
+                                "error"
+                            );
+                            window.location.href = `http://warning.or.kr`
+                            return;
+                        }
+                    });
+                    devtoolsDetector.lanuch();
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(document).bind('keydown', function (e) {
+                    if (e.keyCode == 123) {
+                        e.preventDefault();
+                        e.returnValue = false;
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="login_form" style="padding-bottom: 0;">
+                <div class="logo">
+                    {{shop_name}}
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="form-item">
+                    <input type="text" name="id" id="id" placeholder="아이디" />
+                </div>
+                <div class="form-item">
+                    <input type="password" name="pw" id="pw" placeholder="비밀번호" />
+                </div>
+                <div class="form-item">
+                    <button onclick="login()"> 로그인 </button>
+                </div>
+                <a href="/{{shop_name}}/register" style="text-align: center; display: block;"> 아이디가 없으신가요? 가입하기 </a>
+                <a href="/{{shop_name}}/reset_password" style="text-align: center; display: block;"> 비밀번호를 잊으셨나요? </a>
+            </div>
+        </div>
+        <script>
+            function login() {
+                id = document.querySelector("#id").value;
+                pw = document.querySelector("#pw").value;
+
+                $.ajax({
+                    url: "/{{shop_name}}/login",
+                    type: "post",
+                    data: {
+                        id: id,
+                        pw: pw
+                    },
+                }).done(function (data) {
+                    if (data == "login_success") {
+                        location.href = "/{{shop_name}}";
+                    } else if (data == "ban_user") {
+                        toastr.error('차단된 유저입니다. 관리자에게 문의하세요!');
+                    } else if (data == "login_already") {
+                        toastr.error('이미 다른 자판기에 로그인되어 있습니다! 로그아웃후에 시도하세요!');
+                    } else {
+                        toastr.error('아이디, 비밀번호를 확인해주세요!');
+                    }
+                })
+            }
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    </body>
+</html>

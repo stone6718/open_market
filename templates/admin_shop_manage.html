@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> 케이넷소프트 - Shop_manage </title>
+
+    <link rel="stylesheet" href="/static/assets/vendor/fonts/boxicons.css" />
+
+    <link rel="stylesheet" href="/static/assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="/static/assets/vendor/css/theme-default.css" />
+    <link rel="stylesheet" href="/static/assets/css/demo.css" />
+
+    <link rel="stylesheet" href="/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="/static/assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <script src="/static/assets/vendor/js/helpers.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="/static/assets/js/config.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/player.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+    <script>
+        function logout() {
+            location.href = '/logout';
+        }
+
+        function shop_del(name) {
+            const forreal = confirm(`정말로 상점 '${name}'을 삭제하시겠습니까?`);
+            if (forreal) {
+                $.ajax({
+                    url: "/adm_shop_manage",
+                    type: "post",
+                    data: {
+                        type: "delete",
+                        name: name
+                    }
+                }).done(function (data) {
+                    if (data == "success") {
+                        location.href = "/adm_shop_manage";
+                    } else {
+                        toastr.error(data);
+                    }
+                })
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container-xxl container-p-y"
+        style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+        <div class="row">
+            <div class="col-md-6 w-100">
+                <div class="card mb-4">
+                    <h5 class="card-header">케이넷소프트 - shop manage</h5>
+                    <button type="button" class="btn btn-danger" style="position: absolute; right: 10px; top: 10px;" onclick="logout()"> 로그아웃 </button>
+                    <div class="card-body">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th colspan="5" style="text-align: left;">샵 관리</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for shop in shops %}
+                                <tr>
+                                    <th style="width: 5%;">{{loop.index}}</th>
+                                    <td style="width: 25%;">{{shop[0]}}</td>
+                                    <td style="width: 25%;">{{shop[1]}}</td>
+                                    <td style="width: 25%;">{{shop[2]}}</td>
+                                    <td style="width: 20%; text-align: center;">
+                                        <button type="button" class="btn btn-danger" onclick="shop_del('{{shop[0]}}')">삭제</button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

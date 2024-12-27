@@ -1,0 +1,33 @@
+body {
+    background-color: #242428;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.text {
+    width: 1450px;
+    height: 720px;
+    border: none;
+    border-radius: 3em;
+    color: #fff;
+    background-color: #333;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.main_text {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+button {
+    background-color: rgb(60, 160, 255);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 1em;
+    width: 80px;
+    height: 35px;
+    font-size: 15px;
+}

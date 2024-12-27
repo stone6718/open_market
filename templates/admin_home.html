@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title> {{shop_name}} - Admin Page </title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="/static/admin/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/admin/assets/modules/fontawesome/css/all.min.css">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="/static/admin/assets/modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="/static/admin/assets/modules/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="/static/admin/assets/modules/owlcarousel2/dist//static/admin/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="/static/admin/assets/modules/owlcarousel2/dist//static/admin/assets/owl.theme.default.min.css">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="/static/admin/assets/css/style.css">
+  <link rel="stylesheet" href="/static/admin/assets/css/components.css">
+  <!-- Start GA -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-94034622-3');
+  </script>
+  <!-- /END GA -->
+</head>
+
+<body class="dark-theme">
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+          </ul>
+        </form>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+              <img alt="image" src="/static/admin/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+              <div class="d-sm-none d-lg-inline-block">어서오세요, {{shop_name}} 사장님!</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="/{{shop_name}}" class="dropdown-item has-icon">
+                <i class="far fa-moon"></i> 자판기로 돌아가기
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="/{{shop_name}}/logout" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> 로그아웃
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar sidebar-style-2">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="/{{shop_name}}/admin/admin_home">{{shop_name}} - Admin </a>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="dropdown active" onclick="location.href='/{{shop_name}}/admin/admin_home'">
+              <a href="/{{shop_name}}/admin/admin_home" class="nav-link"><i class="fas fa-fire"></i><span>홈</span></a>
+            </li>
+            <li class="menu-header">Setting</li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_general'">
+              <a href="/{{shop_name}}/admin/admin_general" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-columns"></i>
+                <span>기본설정</span></a>
+            </li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_user_setting'">
+              <a href="/{{shop_name}}/admin/admin_user_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-user"></i>
+                <span>유저관리</span></a>
+            </li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/category_setting'">
+              <a href="/{{shop_name}}/admin/category_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-list"></i>
+                <span>카테고리 관리</span></a>
+            </li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_product_setting'">
+              <a href="/{{shop_name}}/admin/admin_product_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-dot-circle"></i>
+                <span>상품관리</span></a>
+            </li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_charge_setting'">
+              <a href="/{{shop_name}}/admin/admin_charge_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-credit-card"></i>
+                <span>충전관리</span></a>
+            </li>
+
+            <li class="menu-header">LOG</li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_user_buy_log'">
+              <a href="/{{shop_name}}/admin/admin_user_buy_log" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-moon"></i>
+                <span> 구매로그</span></a>
+            </li>
+
+            <li class="menu-header">ETC</li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_link_setting'">
+              <a href="/{{shop_name}}/admin/admin_link_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-link"></i>
+                <span> 하이퍼링크 관리 </span></a>
+            </li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section dark-theme">
+          <div class="section-header">
+            <h1>어드민 페이지 - 홈</h1>
+          </div>
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-primary">
+                  <i class="far fa-user"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>총 유저 수</h4>
+                  </div>
+                  <div class="card-body">
+                    {{user_count}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-danger">
+                  <i class="far fa-credit-card"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>구매자 수</h4>
+                  </div>
+                  <div class="card-body">
+                    {{buyer_count}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-warning">
+                  <i class="far fa-dot-circle"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>구매율</h4>
+                  </div>
+                  <div class="card-body">
+                    {{buy_percent}} %
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-success">
+                  <i class="fas fa-money-bill-alt"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>전체 충전금액</h4>
+                  </div>
+                  <div class="card-body">
+                    {{user_charge_amount}} ₩
+                  </div>
+                </div>
+              </div>
+            </div>                  
+          </div>
+        </section>
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2024 케이넷소프트.
+        </div>
+        <div class="footer-right">
+
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- General JS Scripts -->
+  <script src="/static/admin/assets/modules/jquery.min.js"></script>
+  <script src="/static/admin/assets/modules/popper.js"></script>
+  <script src="/static/admin/assets/modules/tooltip.js"></script>
+  <script src="/static/admin/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/static/admin/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="/static/admin/assets/modules/moment.min.js"></script>
+  <script src="/static/admin/assets/js/stisla.js"></script>
+
+  <!-- JS Libraies -->
+  <script src="/static/admin/assets/modules/jquery.sparkline.min.js"></script>
+  <script src="/static/admin/assets/modules/chart.min.js"></script>
+  <script src="/static/admin/assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
+  <script src="/static/admin/assets/modules/summernote/summernote-bs4.js"></script>
+  <script src="/static/admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+
+  <!-- Page Specific JS File -->
+  <script src="/static/admin/assets/js/page/index.js"></script>
+
+  <!-- Template JS File -->
+  <script src="/static/admin/assets/js/scripts.js"></script>
+  <script src="/static/admin/assets/js/custom.js"></script>
+</body>
+
+</html>

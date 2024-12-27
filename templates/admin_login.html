@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> 케이넷소프트 - Login </title>
+
+    <link rel="stylesheet" href="/static/assets/vendor/fonts/boxicons.css" />
+
+    <link rel="stylesheet" href="/static/assets/vendor/css/core.css" />
+    <link rel="stylesheet" href="/static/assets/vendor/css/theme-default.css" />
+    <link rel="stylesheet" href="/static/assets/css/demo.css" />
+
+    <link rel="stylesheet" href="/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="/static/assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <script src="/static/assets/vendor/js/helpers.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="/static/assets/js/config.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/player.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+    <script>
+        function login() {
+            $.ajax({
+                url: "/adm_login",
+                type: "post",
+                data: $("form").serialize()
+            }).done(function (data) {
+                if (data == "success") {
+                    location.href = "/adm_shop_manage";
+                } else {
+                    toastr.error(data);
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container-xxl container-p-y"
+        style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+        <div class="row">
+            <div class="col-md-6 w-100">
+                <div class="card mb-4">
+                    <h5 class="card-header">케이넷소프트 - Admin</h5>
+                    <div class="card-body">
+                        <form name="form">
+                            <div class="mb-3">
+                                <label class="form-label"> Admin ID </label>
+                                <input class="form-control" placeholder="Admin ID" name="id" id="id">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"> Admin PW </label>
+                                <input class="form-control" type="password" placeholder="Admin PW" name="pw" id="pw">
+                            </div>
+                            <button type="button" class="btn btn-primary" style="width: 100%;" onclick="login()"> 로그인 </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script src="/static/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/static/assets/vendor/js/bootstrap.js"></script>
+    <script src="/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  
+    <script src="/static/assets/vendor/js/menu.js"></script>
+  
+    <script src="/static/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+  
+    <script src="/static/assets/js/main.js"></script>
+  
+    <script src="/static/assets/js/dashboards-analytics.js"></script>
+  
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+</html>

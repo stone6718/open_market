@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title> 케이넷소프트 - Create </title>
+
+        <link rel="stylesheet" href="/static/assets/vendor/fonts/boxicons.css" />
+        <link rel="stylesheet" href="/static/assets/vendor/css/core.css" />
+        <link rel="stylesheet" href="/static/assets/vendor/css/theme-default.css" />
+        <link rel="stylesheet" href="/static/assets/css/demo.css" />
+        <link rel="stylesheet" href="/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+        <link rel="stylesheet" href="/static/assets/vendor/libs/apex-charts/apex-charts.css" />
+
+        <script src="/static/assets/vendor/js/helpers.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="/static/assets/js/config.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <link rel="stylesheet" href="/static/css/player.css">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+        <script>
+            function create() {
+                var shop_name = document.querySelector("#shop_name").value;
+
+                $.ajax({
+                    url: "/create",
+                    type: "post",
+                    data: $("form").serialize()
+                }).done(function (data) {
+                    if (data == "success") {
+                        toastr.success("비밀번호가 초기화되었습니다!\n3초 후에 로그인 페이지로 이동합니다.");
+                        setTimeout(() => {
+                            location.href = "/{{shop_name}}/login";
+                        }, 3000);
+                    } else {
+                        toastr.success("샵을 생성하는 과정에서 오류가 발생되었습니다.");
+                        toastr.error(data);
+                    }
+                })
+            }
+        </script>
+        <script>
+            function verify_send() {
+                var shop_name = document.querySelector("#shop_name").value;
+
+                $.ajax({
+                    url: "/send_email",
+                    type: "post",
+                    data: $("form").serialize()
+                }).done(function (data) {
+                    if (data == "success") {
+                        location.href = "https://stonecl.kr/create"
+                    } else {
+                        toastr.error(data);
+                    }
+                })
+            }
+        </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body style="background-color: #333;">
+        <div class="container-xxl container-p-y"
+            style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+            <div class="row">
+                <div class="col-md-6 w-100">
+                    <div class="card mb-4">
+                        <h5 class="card-header">케이넷소프트 - Create</h5>
+                        <div class="card-body">
+                            <form name="form" action="/send_email" method="post">
+                                <div class="mb-3">
+                                    <label class="form-label"> Shop Name ( 영문 ) </label>
+                                    <input class="form-control" placeholder="Shop Name ( 영문 )" name="shop_name" id="shop_name">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label"> Admin ID </label>
+                                    <input class="form-control" placeholder="Admin ID" name="admin_id" id="admin_id">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label"> Admin PW </label>
+                                    <input class="form-control" type="password" placeholder="Admin PW" name="admin_pw" id="admin_pw">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label"> Phone Number </label>
+                                    <input class="form-control" type="number" placeholder="Phone Number" name="phone_number" id="phone_number">
+                                </div>
+                                <div class="mb-3" style="display: flex; flex-direction: column; gap: 5px;">
+                                    <label class="form-label" for="email" style="margin-bottom: 0;">Email</label>
+                                    <div style="display: flex; align-items: center;">
+                                        <input class="form-control" placeholder="Email" style="flex-grow: 1; margin-right: 10px;" name="email" id="email">
+                                        <button type="button" class="btn btn-primary" style="min-width: 70px;" onclick="verify_send()">전송</button>
+                                    </div>
+                                </div>                                
+                                <div class="mb-3">
+                                    <label class="form-label"> Verify Number </label>
+                                    <input class="form-control" type="number" placeholder="Verify Number" name="key" id="key">
+                                </div>
+                                <button type="button" class="btn btn-primary" style="width: 100%;" onclick="create()"> 생성하기</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <script src="/static/assets/vendor/libs/popper/popper.js"></script>
+        <script src="/static/assets/vendor/js/bootstrap.js"></script>
+        <script src="/static/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="/static/assets/vendor/js/menu.js"></script>
+        <script src="/static/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+        <script src="/static/assets/js/main.js"></script>
+        <script src="/static/assets/js/dashboards-analytics.js"></script>
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+    </body>
+</html>

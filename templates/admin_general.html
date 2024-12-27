@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title> {{shop_name}} - Admin Page </title>
+
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="/static/admin/assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/admin/assets/modules/fontawesome/css/all.min.css">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="/static/admin/assets/modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="/static/admin/assets/modules/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="/static/admin/assets/modules/owlcarousel2/dist//static/admin/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="/static/admin/assets/modules/owlcarousel2/dist//static/admin/assets/owl.theme.default.min.css">
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="/static/admin/assets/css/style.css">
+  <link rel="stylesheet" href="/static/admin/assets/css/components.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+  <!-- Start GA -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-94034622-3');
+  </script>
+  <!-- /END GA -->
+</head>
+
+<body class="dark-theme">
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar">
+        <form class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+          </ul>
+        </form>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+              <img alt="image" src="/static/admin/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+              <div class="d-sm-none d-lg-inline-block">어서오세요, {{shop_name}} 사장님!</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a href="/{{shop_name}}" class="dropdown-item has-icon">
+                <i class="far fa-moon"></i> 자판기로 돌아가기
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="/{{shop_name}}/logout" class="dropdown-item has-icon text-danger">
+                <i class="fas fa-sign-out-alt"></i> 로그아웃
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar sidebar-style-2">
+        <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="/{{shop_name}}/admin/admin_home">{{shop_name}} - Admin </a>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_home'">
+              <a href="/{{shop_name}}/admin/admin_home" class="nav-link"><i class="fas fa-fire"></i><span>홈</span></a>
+            </li>
+            <li class="menu-header">Setting</li>
+            <li class="dropdown active" onclick="location.href='/{{shop_name}}/admin/admin_general'">
+              <a href="/{{shop_name}}/admin/admin_general" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-columns"></i>
+                <span>기본설정</span></a>
+            </li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_user_setting'">
+              <a href="/{{shop_name}}/admin/admin_user_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-user"></i>
+                <span>유저관리</span></a>
+            </li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/category_setting'">
+              <a href="/{{shop_name}}/admin/category_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-list"></i>
+                <span>카테고리 관리</span></a>
+            </li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_product_setting'">
+              <a href="/{{shop_name}}/admin/admin_product_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-dot-circle"></i>
+                <span>상품관리</span></a>
+            </li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_charge_setting'">
+              <a href="/{{shop_name}}/admin/admin_charge_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-credit-card"></i>
+                <span>충전관리</span></a>
+            </li>
+
+            <li class="menu-header">LOG</li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_user_buy_log'">
+              <a href="/{{shop_name}}/admin/admin_user_buy_log" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-moon"></i>
+                <span> 구매로그</span></a>
+            </li>
+
+            <li class="menu-header">ETC</li>
+            <li class="dropdown" onclick="location.href='/{{shop_name}}/admin/admin_link_setting'">
+              <a href="/{{shop_name}}/admin/admin_link_setting" class="nav-link" data-toggle="dropdown"><i
+                  class="fas fa-link"></i>
+                <span> 하이퍼링크 관리 </span></a>
+            </li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section dark-theme">
+          <div class="section-header">
+            <h1>어드민 페이지 - 기본설정</h1>
+          </div>
+          <div class="card-footer text-right dark-theme-gray">
+            <button class="btn btn-primary" style="width: 150px;" onclick="admin_save()">적용하기</button>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="card">
+                <div class="card-header">
+                  <h4>문화상품권 자동충전을 위한 설정</h4>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>컬쳐랜드 아이디</label>
+                    <input type="text" class="form-control" name="ct_id" id="ct_id" placeholder="컬쳐랜드 아이디"
+                      value="{{server_info[2]}}">
+                    <br>
+                    <label>컬쳐랜드 비밀번호</label>
+                    <input type="password" class="form-control" name="ct_pw" id="ct_pw" placeholder="컬쳐랜드 비밀번호"
+                      value="{{server_info[3]}}">
+                    <br>
+                    <label>컬쳐랜드 KeepLoginConfig Cookie</label>
+                    <input type="text" class="form-control" name="ct_cookie" id="ct_cookie"
+                      placeholder="컬쳐랜드 KeepLoginConfig Cookie" value="{{server_info[4]}}">
+                    <br>
+                    <label>문화상품권 수수료</label>
+                    <input type="text" class="form-control" name="ct_fees" id="ct_fees" placeholder="문화상품권 수수료 ( 숫자만 )"
+                      value="{{server_info[7]}}">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h4>배경음악 ( 음악 URL )</h4>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>배경음악 ( 음악 URL )</label>
+                    <input type="text" class="form-control" name="store_music" id="store_music"
+                      placeholder="EX ) http://sndup.net/y59m/d" value="{{server_info[12]}}">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h4>구매로그 설정</h4>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>구매로그 웹훅 URL</label>
+                    <input type="text" class="form-control" name="buy_log_webhook_url" id="buy_log_webhook_url"
+                      placeholder="구매로그 웹훅 URL" value="{{server_info[1]}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="card">
+                <div class="card-header">
+                  <h4>채널톡 설정 ( 플러그인 키 )</h4>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>채널톡 설정 ( 플러그인 키 )</label>
+                    <input type="text" class="form-control" name="channeltalk_plugin" id="channeltalk_plugin"
+                      placeholder="채널톡 설정 ( 플러그인 키 )" value="{{server_info[13]}}">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h4>계좌이체 자동충전을 위한 설정</h4>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>계좌번호 ( 은행포함 입력 )</label>
+                    <input type="text" class="form-control" name="bank_number" id="bank_number" placeholder="계좌번호"
+                      value="{{server_info[10]}}">
+                    <label>계좌이체 자동충전 토큰</label>
+                    <input type="text" class="form-control" name="bank_charge_key" id="bank_charge_key"
+                      placeholder="계좌이체 자동충전 토큰" value="{{server_info[11]}}">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h4>토스아이디 자동충전을 위한 설정</h4>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>토스아이디 URL</label>
+                    <input type="text" class="form-control" name="toss_id" id="toss_id" placeholder="EX ) https://toss.me/codestone"
+                      value="{{server_info[14]}}">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h4>네이버 스마트스토어 자동충전을 위한 설정</h4>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>네이버 커머스API 애플리케이션 ID</label>
+                    <input type="text" class="form-control" name="naver_client_id" id="naver_client_id" placeholder="애플리케이션 ID"
+                      value="{{server_info[15]}}">
+                    <label>네이버 커머스API 애플리케이션 시크릿</label>
+                    <input type="password" class="form-control" name="naver_client_secret" id="naver_client_secret"
+                      placeholder="애플리케이션 시크릿" value="{{server_info[16]}}">
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h4>공지사항 이미지 설정</h4>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>공지사항 이미지 URL</label>
+                    <input type="text" class="form-control" name="notice_img_url" id="notice_img_url"
+                      placeholder="공지사항 이미지 URL" value="{{server_info[6]}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+      </div>
+      <footer class="main-footer">
+        <div class="footer-left">
+          Copyright &copy; 2024 케이넷소프트.
+        </div>
+        <div>
+          <p> 저렴하게 판매하는 쇼핑몰! </p>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    function admin_save() {
+      store_music = document.querySelector("#store_music").value
+
+      ct_id = document.querySelector("#ct_id").value
+      ct_pw = document.querySelector("#ct_pw").value
+      ct_fees = document.querySelector("#ct_fees").value
+      ct_cookie = document.querySelector("#ct_cookie").value
+
+      bank_number = document.querySelector("#bank_number").value
+      bank_charge_key = document.querySelector("#bank_charge_key").value
+
+      notice_img_url = document.querySelector("#notice_img_url").value
+
+      buy_log_webhook_url = document.querySelector("#buy_log_webhook_url").value
+
+      channeltalk_plugin = document.querySelector("#channeltalk_plugin").value
+
+      const toss_id = document.querySelector("#toss_id").value;
+
+      const naver_client_id = document.querySelector("#naver_client_id").value;
+      const naver_client_secret = document.querySelector("#naver_client_secret").value;
+
+      Swal.fire({
+        title: '저장 하시겠습니까?',
+        text: "저장하시면 기존 설정은 모두 삭제됩니다!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '저장하기',
+        cancelButtonText: '취소하기'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "/{{shop_name}}/admin/admin_general",
+            type: "post",
+            data: {
+              channeltalk_plugin: channeltalk_plugin,
+              buy_log_webhook_url: buy_log_webhook_url,
+              store_music: store_music,
+              ct_cookie: ct_cookie,
+              ct_id: ct_id,
+              ct_pw: ct_pw,
+              ct_fees: ct_fees,
+              bank_number: bank_number,
+              bank_charge_key: bank_charge_key,
+              notice_img_url: notice_img_url,
+              toss_id: toss_id,
+              naver_client_id: naver_client_id,
+              naver_client_secret: naver_client_secret
+            },
+          }).done(function (data) {
+            if (data == "ok") {
+              Swal.fire({
+                icon: 'success',
+                title: '저장 성공!',
+                text: '성공적으로 저장되었습니다!'
+              })
+            } else {
+              Swal.fire(
+                '저장 실패!',
+                data,
+                'error'
+              );
+            }
+          })
+        }
+      })
+    }
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<!-- General JS Scripts -->
+<script src="/static/admin/assets/modules/popper.js"></script>
+<script src="/static/admin/assets/modules/tooltip.js"></script>
+<script src="/static/admin/assets/modules/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/admin/assets/modules/moment.min.js"></script>
+<script src="/static/admin/assets/js/stisla.js"></script>
+
+<script src="/static/admin/assets/modules/jquery.min.js"></script>
+<script src="/static/admin/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+<script src="/static/admin/assets/modules/jquery.sparkline.min.js"></script>
+<script src="/static/admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+
+<!-- JS Libraies -->
+<script src="/static/admin/assets/modules/chart.min.js"></script>
+<script src="/static/admin/assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
+<script src="/static/admin/assets/modules/summernote/summernote-bs4.js"></script>
+
+<!-- Page Specific JS File -->
+<script src="/static/admin/assets/js/page/index.js"></script>
+
+<!-- Template JS File -->
+<script src="/static/admin/assets/js/scripts.js"></script>
+<script src="/static/admin/assets/js/custom.js"></script>
+</body>
+
+</html>

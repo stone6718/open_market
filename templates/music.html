@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .controls button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Music Player</h1>
+        <audio id="audioPlayer" controls>
+            <source src="../music/QWER-worry.mp3" type="audio/mp3">
+            Your browser does not support the audio tag.
+        </audio>
+        <div class="controls">
+            <button id="playButton">Play</button>
+            <button id="pauseButton">Pause</button>
+            <button id="stopButton">Stop</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const audioPlayer = document.getElementById("audioPlayer");
+            const playButton = document.getElementById("playButton");
+            const pauseButton = document.getElementById("pauseButton");
+            const stopButton = document.getElementById("stopButton");
+
+            playButton.addEventListener("click", function() {
+                audioPlayer.play();
+            });
+
+            pauseButton.addEventListener("click", function() {
+                audioPlayer.pause();
+            });
+
+            stopButton.addEventListener("click", function() {
+                audioPlayer.pause();
+                audioPlayer.currentTime = 0;
+            });
+        });
+    </script>
+</body>
+</html>
